@@ -17,11 +17,12 @@ class DiscuzSpider(scrapy.Spider):
         i = 0
         for discuz in Tiezi:
             item = DiscuzItem()
-            content = discuz.xpath('./div[contains(@class,"l_post")]//div[class="d_post_content"]/text()').extract()
+            content = discuz.xpath('//div[contains(@class,"d_post_content j_d_post_content  clearfix")]').extract()[i]
             item['content'] = content
             item['url'] = self.u
             print(i)
-            print(discuz)
-            break
+            print(content)
             i += 1
             yield item
+        urls = response.xpath('//li[contains(@class,"l_pager pager_theme_4 pb_list_pager")]').extract()
+        print(urls)
